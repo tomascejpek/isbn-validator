@@ -5,15 +5,15 @@ class ISBNValidator:
 
     @staticmethod
     def isValidISBN10(code):
-        ISBN10_REGEX = "^(?:(\d{9}[0-9X])|(?:(\d{1,5})(?:-|\s)(\d{1,7})(?:-|\s)(\d{1,6})(?:-|\s)([0-9X])))$"
-        ISBN10_NUMBER = "\d"
+        ISBN10_REGEX = "^(?:(\d{9}[0-9Xx])|(?:(\d{1,5})(?:-|\s)(\d{1,7})(?:-|\s)(\d{1,6})(?:-|\s)([0-9Xx])))$"
+        ISBN10_NUMBER = "[\dXx]"
         matcher = re.search(ISBN10_REGEX, code)
         if matcher is None:
             return False
         code = ''.join(re.findall(ISBN10_NUMBER, code))
         sum = 0
         for i in range(1, 11):
-            sum += i * int(10 if code[10 - i] == 'X' else code[10 - i])
+            sum += i * int(10 if code[10 - i] in ['X', 'x'] else code[10 - i])
         if sum % 11 == 0:
             return True
         return False
