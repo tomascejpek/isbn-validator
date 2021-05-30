@@ -32,3 +32,17 @@ class ISBNValidator:
         if sum % 10 == 0:
             return True
         return False
+
+    @staticmethod
+    def convertToISBN13(code):
+        if ISBNValidator.isValidISBN10(code):
+            tempCode = '978' + code[:len(code) - 1].replace('-', '')
+            sum = 0
+            for i in range(0, 12):
+                sum += (3 if i % 2 == 1 else 1) * int(tempCode[i])
+            code = '978-' + code[:len(code) - 1] + str(0 if sum % 10 == 0 else 10 - (sum % 10))
+            return code if ISBNValidator.isValidISBN13(code) else False
+        elif ISBNValidator.isValidISBN13(code):
+            return code
+        else:
+            return False

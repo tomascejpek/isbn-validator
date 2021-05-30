@@ -21,3 +21,10 @@ class testISBNValidator(unittest.TestCase):
 
     def testISBN13NotValid(self):
         self.assertFalse(ISBNValidator.isValidISBN13('978-80-75-5512-45'))
+
+    def testConvertToISBN13(self):
+        self.assertEqual(ISBNValidator.convertToISBN13('85-359-0277-5'), '978-85-359-0277-8')
+        self.assertEqual(ISBNValidator.convertToISBN13('0-8044-2957-X'), '978-0-8044-2957-3')
+
+    def testConvertToISBN13NotValid(self):
+        self.assertFalse(ISBNValidator.convertToISBN13('85-359-0277-4'), '978-85-359-0277-8')
