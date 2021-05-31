@@ -40,7 +40,8 @@ class ISBNValidator:
             sum = 0
             for i in range(0, 12):
                 sum += (1 if i % 2 == 0 else 3) * int(tempCode[i])
-            code = '978-' + code[:len(code) - 1] + str(0 if sum % 10 == 0 else 10 - (sum % 10))
+            code = '978' + ('' if re.search('-', code) is None else '-') + code[:len(code) - 1] \
+                   + str(0 if sum % 10 == 0 else 10 - (sum % 10))
             return code if ISBNValidator.isValidISBN13(code) else False
         elif ISBNValidator.isValidISBN13(code):
             return code
