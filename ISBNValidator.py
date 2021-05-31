@@ -27,8 +27,8 @@ class ISBNValidator:
             return False
         code = ''.join(re.findall(ISBN13_NUMBER, code))
         sum = 0
-        for i in range(1, 14):
-            sum += (1 if i % 2 == 1 else 3) * int(code[13 - i])
+        for i in range(0, 13):
+            sum += (1 if i % 2 == 0 else 3) * int(code[i])
         if sum % 10 == 0:
             return True
         return False
@@ -39,7 +39,7 @@ class ISBNValidator:
             tempCode = '978' + code[:len(code) - 1].replace('-', '')
             sum = 0
             for i in range(0, 12):
-                sum += (3 if i % 2 == 1 else 1) * int(tempCode[i])
+                sum += (1 if i % 2 == 0 else 3) * int(tempCode[i])
             code = '978-' + code[:len(code) - 1] + str(0 if sum % 10 == 0 else 10 - (sum % 10))
             return code if ISBNValidator.isValidISBN13(code) else False
         elif ISBNValidator.isValidISBN13(code):
