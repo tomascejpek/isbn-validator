@@ -46,3 +46,20 @@ class ISBNValidator:
             return code
         else:
             return False
+
+    @staticmethod
+    def convertToISBN10(code):
+        if ISBNValidator.isValidISBN13(code):
+            code = code[3:len(code) - 1]
+            if code[0] == '-':
+                code = code[1:]
+            tempCode = code.replace('-', '')
+            sum = 0
+            for i in range(1, 10):
+                sum += i * int(tempCode[9 - i])
+            code = code + str('X' if sum % 11 == 10 else sum % 11)
+            return code if ISBNValidator.isValidISBN10(code) else False
+        elif ISBNValidator.isValidISBN10(code):
+            return code
+        else:
+            return False
