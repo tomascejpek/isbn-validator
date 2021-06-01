@@ -3,6 +3,11 @@ import unittest
 
 
 class testISBNValidator(unittest.TestCase):
+
+    def testIsValid(self):
+        testISBNValidator.testISBN10Valid(self)
+        testISBNValidator.testISBN13Valid(self)
+
     def testISBN10Valid(self):
         self.assertTrue(ISBNValidator.isValidISBN10('9971-5-0210-0'))
         self.assertTrue(ISBNValidator.isValidISBN10('9971502100'))

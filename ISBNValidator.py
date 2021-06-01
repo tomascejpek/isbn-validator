@@ -4,6 +4,10 @@ import re
 class ISBNValidator:
 
     @staticmethod
+    def isValid(code):
+        return ISBNValidator.isValidISBN10(code) or ISBNValidator.isValidISBN13(code)
+
+    @staticmethod
     def isValidISBN10(code):
         ISBN10_REGEX = "^(?:(\d{9}[0-9Xx])|(?:(\d{1,5})(?:-|\s)(\d{1,7})(?:-|\s)(\d{1,6})(?:-|\s)([0-9Xx])))$"
         ISBN10_NUMBER = "[\dXx]"
